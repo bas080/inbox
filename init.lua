@@ -1,4 +1,19 @@
 local inbox = {}
+
+--[[
+TODO
+* Different node_box and texture for empty mailbox
+]]
+
+minetest.register_craft({
+  output ="inbox:empty",
+  recipe = {
+    {"","default:steel_ingot",""},
+    {"default:steel_ingot","","default:steel_ingot"},
+    {"default:steel_ingot","default:steel_ingot","default:steel_ingot"}
+  }
+})
+
 minetest.register_node("inbox:empty", {
   paramtype = "light",
   drawtype = "nodebox",
@@ -90,3 +105,5 @@ function inbox.get_inbox_insert_formspec(pos)
 		"list[current_player;main;0,5;8,4;]"
 	return formspec
 end
+
+print("[Mod]Inbox Loaded!")
