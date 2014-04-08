@@ -1,5 +1,13 @@
 local inbox = {}
 
+-- Boilerplate to support localized strings if intllib mod is installed.
+local S
+if intllib then
+  S = intllib.Getter()
+else
+  S = function(s) return s end
+end
+
 --[[
 TODO
 * Different node_box and texture for empty mailbox
@@ -26,7 +34,7 @@ minetest.register_node("inbox:empty", {
       {3/12, 3/12, -2/12, 4/12, 5/12, 0/12}
     }
   },
-  description = "Mailbox",
+  description = S("Mailbox"),
   tiles = {"inbox_top.png", "inbox_bottom.png", "inbox_east.png",
     "inbox_west.png", "inbox_back.png", "inbox_front.png"},
   paramtype2 = "facedir",
@@ -36,7 +44,7 @@ minetest.register_node("inbox:empty", {
     local meta = minetest.get_meta(pos)
     local owner = placer:get_player_name()
     meta:set_string("owner", owner)
-    meta:set_string("infotext", owner.."'s Mailbox")
+    meta:set_string("infotext", S("%s's Mailbox"):format(owner))
     local inv = meta:get_inventory()
     inv:set_size("main", 8*4)
     inv:set_size("drop", 1)
@@ -106,4 +114,4 @@ function inbox.get_inbox_insert_formspec(pos)
 	return formspec
 end
 
-print("[Mod]Inbox Loaded!")
+print(S("[Mod]Inbox Loaded!"))
