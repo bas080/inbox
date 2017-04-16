@@ -25,7 +25,7 @@ minetest.register_craft({
 minetest.register_node("inbox:empty", {
   paramtype = "light",
   drawtype = "nodebox",
-  node_box = { 
+  node_box = {
     type = "fixed",
     fixed = {
       {-4/12, -6/12, -6/12, 4/12, 0/12, 6/12},
@@ -93,6 +93,17 @@ minetest.register_node("inbox:empty", {
         return 0
       end
     end
+  end,
+  allow_metadata_inventory_take = function(pos, listname, index, stack, player)
+  	local meta = minetest.get_meta(pos)
+    local owner = meta:get_string("owner")
+  	if player:get_player_name() ~= owner then
+  		return 0
+  	end
+  	return stack:get_count()
+  end,
+  allow_metadata_inventory_move = function(pos)
+    return 0
   end,
 })
 
