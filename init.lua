@@ -95,12 +95,12 @@ minetest.register_node("inbox:empty", {
     end
   end,
   allow_metadata_inventory_take = function(pos, listname, index, stack, player)
-  	local meta = minetest.get_meta(pos)
+    local meta = minetest.get_meta(pos)
     local owner = meta:get_string("owner")
-  	if player:get_player_name() ~= owner then
-  		return 0
-  	end
-  	return stack:get_count()
+    if player:get_player_name() ~= owner then
+      return 0
+    end
+    return stack:get_count()
   end,
   allow_metadata_inventory_move = function(pos)
     return 0
